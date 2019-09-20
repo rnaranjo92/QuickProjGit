@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuickProj.Models.Cart>
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cart</h2>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Number of Pages</th>
+            <th>Due Date if checked out</th>
+            <th>Publication Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="6" align="center">No items in the cart.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Book.Name</td>
+                    <td>@m.Book.Author</td>
+                    <td>@m.Book.ISBN</td>
+                    <td>@m.Book.NumberOfPages</td>
+                    <td>@m.Book.rentLength</td>
+                    <td>@m.Book.PublicationDate</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<button onclick="location.href='@Url.Action("Checkout", "BorrowedBooksByUser")'">Checkout</button>

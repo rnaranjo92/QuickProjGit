@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QuickProj.Models.BorrowedBooksByUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Number of Pages</th>
+            <th>Return Date</th>
+            <th>Publication Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="4" style="color:red">
+                    You dont have books in your posession.
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Book.Name</td>
+                    <td>@book.Book.Author</td>
+                    <td>@book.Book.ISBN</td>
+                    <td>@book.Book.NumberOfPages</td>
+                    <td>@book.ReturnDate</td>
+                    <td>@book.Book.PublicationDate</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

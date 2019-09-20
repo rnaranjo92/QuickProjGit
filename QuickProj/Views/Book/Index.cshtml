@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QuickProj.Models.BookModels>
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "Book", FormMethod.Get))
+{
+    @Html.TextBox("keyword")<input type="submit" value="Search" />
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Number of Pages</th>
+            <th>Due Date if checked out</th>
+            <th>Publication Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" style="color:red">
+                    No match in the database. Please search again
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var book in Model)
+            {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.ISBN</td>
+                <td>@book.NumberOfPages</td>
+                <td>@book.rentLength.AddDays(7).ToShortDateString()</td>
+                <td>@book.PublicationDate.ToShortDateString()</td>
+                @if (@book.isAddedToCart == true)
+                {
+                    <td>Added to Cart</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { Id = book.Id }, null)</td>
+                }
+            </tr>
+            }
+        }
+    </tbody>
+    <tr>
+        <td colspan="7" style="text-align:right;font-size:25px;">@Html.ActionLink("View Cart", "Index", "Cart", null, null)</td>
+    </tr>
+</table>
